@@ -1,0 +1,38 @@
+{
+   "resources" : {
+      "repository" : "http://github.com/hanekomu/Dist-Zilla-Plugin-PodSpellingTests"
+   },
+   "generated_by" : "Dist::Zilla version 1.100660",
+   "meta-spec" : {
+      "version" : 1.4,
+      "url" : "http://module-build.sourceforge.net/META-spec-v1.4.html"
+   },
+   "version" : "1.100690",
+   "name" : "Dist-Zilla-Plugin-PodSpellingTests",
+   "author" : [
+      "Marcel Gruenauer <marcel@cpan.org>"
+   ],
+   "license" : "perl",
+   "build_requires" : {},
+   "provides" : {
+      "Dist::Zilla::Plugin::PodSpellingTests" : {
+         "version" : "1.100690",
+         "file" : "lib/Dist/Zilla/Plugin/PodSpellingTests.pm"
+      }
+   },
+   "requires" : {
+      "Test::Spelling" : "0",
+      "English" : "0",
+      "perl" : "5.008",
+      "Test::More" : "0",
+      "File::Find" : "0",
+      "File::Temp" : "0",
+      "Pod::Wordlist::hanekomu" : "0",
+      "Dist::Zilla::Plugin::InlineFiles" : "0",
+      "Moose" : "0"
+   },
+   "abstract" : "release tests for POD spelling",
+   "configure_requires" : {
+      "ExtUtils::MakeMaker" : "6.11"
+   }
+}
