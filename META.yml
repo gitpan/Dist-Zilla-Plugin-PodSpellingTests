@@ -1,11 +1,17 @@
 ---
-abstract: 'release tests for POD spelling'
+abstract: 'Release tests for POD spelling'
 author:
   - 'Marcel Gruenauer <marcel@cpan.org>'
-build_requires: {}
+build_requires:
+  Carp: 0
+  English: 0
+  File::Find: 0
+  File::Temp: 0
+  Scalar::Util: 0
+  Test::More: 0.94
 configure_requires:
-  ExtUtils::MakeMaker: 6.11
-generated_by: 'Dist::Zilla version 1.100660'
+  ExtUtils::MakeMaker: 6.31
+generated_by: 'Dist::Zilla version 2.100960'
 license: perl
 meta-spec:
   url: http://module-build.sourceforge.net/META-spec-v1.4.html
@@ -14,17 +20,16 @@ name: Dist-Zilla-Plugin-PodSpellingTests
 provides:
   Dist::Zilla::Plugin::PodSpellingTests:
     file: lib/Dist/Zilla/Plugin/PodSpellingTests.pm
-    version: 1.100690
+    version: 1.101420
+recommends: {}
 requires:
   Dist::Zilla::Plugin::InlineFiles: 0
-  English: 0
-  File::Find: 0
-  File::Temp: 0
   Moose: 0
   Pod::Wordlist::hanekomu: 0
-  Test::More: 0
   Test::Spelling: 0
   perl: 5.008
 resources:
+  bugtracker: http://rt.cpan.org/Public/Dist/Display.html?Name=Dist-Zilla-Plugin-PodSpellingTests
+  homepage: http://search.cpan.org/dist/Dist-Zilla-Plugin-PodSpellingTests/
   repository: http://github.com/hanekomu/Dist-Zilla-Plugin-PodSpellingTests
-version: 1.100690
+version: 1.101420
