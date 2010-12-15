@@ -4,13 +4,54 @@ use warnings;
 
 package Dist::Zilla::Plugin::PodSpellingTests;
 BEGIN {
-  $Dist::Zilla::Plugin::PodSpellingTests::VERSION = '1.101420';
+  $Dist::Zilla::Plugin::PodSpellingTests::VERSION = '1.103490';
 }
+
 # ABSTRACT: Release tests for POD spelling
 use Moose;
-use Pod::Wordlist::hanekomu;
 extends 'Dist::Zilla::Plugin::InlineFiles';
-
+with 'Dist::Zilla::Role::TextTemplate';
+sub mvp_multivalue_args { qw( stopwords ) }
+has wordlist => (
+    is      => 'ro',
+    isa     => 'Str',
+    default => 'Pod::Wordlist::hanekomu',    # default to original
+);
+has spell_cmd => (
+    is      => 'ro',
+    isa     => 'Str',
+    default => '',                           # default to original
+);
+has stopwords => (
+    is      => 'ro',
+    isa     => 'ArrayRef[Str]',
+    default => sub { [] },                   # default to original
+);
+around add_file => sub {
+    my ($orig, $self, $file) = @_;
+    my ($set_spell_cmd, $add_stopwords, $stopwords);
+    if ($self->spell_cmd) {
+        $set_spell_cmd = sprintf "set_spell_cmd('%s');", $self->spell_cmd;
+    }
+    if (@{ $self->stopwords } > 0) {
+        $add_stopwords = 'add_stopwords(<DATA>);';
+        $stopwords = join "\n", '__DATA__', @{ $self->stopwords };
+    }
+    $self->$orig(
+        Dist::Zilla::File::InMemory->new(
+            {   name    => $file->name,
+                content => $self->fill_in_string(
+                    $file->content,
+                    {   wordlist      => \$self->wordlist,
+                        set_spell_cmd => \$set_spell_cmd,
+                        add_stopwords => \$add_stopwords,
+                        stopwords     => \$stopwords,
+                    },
+                ),
+            }
+        ),
+    );
+};
 __PACKAGE__->meta->make_immutable;
 no Moose;
 1;
@@ -20,19 +61,49 @@ no Moose;
 
 =pod
 
+=for stopwords wordlist
+
+=for test_synopsis 1;
+__END__
+
 =head1 NAME
 
 Dist::Zilla::Plugin::PodSpellingTests - Release tests for POD spelling
 
 =head1 VERSION
 
-version 1.101420
+version 1.103490
 
 =head1 SYNOPSIS
 
 In C<dist.ini>:
 
     [PodSpellingTests]
+
+or:
+
+    [PodSpellingTests]
+    wordlist = Pod::Wordlist
+    spell_cmd = aspell list
+    stopwords = CPAN
+    stopwords = github
+    stopwords = stopwords
+    stopwords = wordlist
+
+or, if you wanted to use my plugin bundle but just override this plugin's
+configuration:
+
+    [@Filter]
+    -bundle = @MARCEL
+    -remove = PodSpellingTests
+
+    [PodSpellingTests]
+    wordlist = Pod::Wordlist
+    spell_cmd = aspell list
+    stopwords = CPAN
+    stopwords = github
+    stopwords = stopwords
+    stopwords = wordlist
 
 =head1 DESCRIPTION
 
@@ -41,8 +112,34 @@ following file:
 
   xt/release/pod-spell.t - a standard Test::Spelling test
 
-=for test_synopsis 1;
-__END__
+=head1 METHODS
+
+=head2 wordlist
+
+The module name of a word list you wish to use that works with
+L<Test::Spelling>.
+
+Defaults to L<Pod::Wordlist::hanekomu>.
+
+=head2 spell_cmd
+
+If C<spell_cmd> is set then C<set_spell_cmd( your_spell_command );> added to
+the test file to allow.
+
+Defaults to nothing.
+
+=head2 stopwords
+
+If stopwords is set then C<add_stopwords( <DATA> )> is added to the test file
+and the words are added after the __DATA__ section.
+
+C<stopwords> can appear multiple times, one word per line.
+
+Defaults to nothing.
+
+=head1 ATTRIBUTES
+
+=for Pod::Coverage mvp_multivalue_args
 
 =head1 INSTALLATION
 
@@ -59,17 +156,26 @@ L<http://rt.cpan.org/Public/Dist/Display.html?Name=Dist-Zilla-Plugin-PodSpelling
 
 The latest version of this module is available from the Comprehensive Perl
 Archive Network (CPAN). Visit L<http://www.perl.com/CPAN/> to find a CPAN
-site near you, or see
-L<http://search.cpan.org/dist/Dist-Zilla-Plugin-PodSpellingTests/>.
+site near you, or see L<http://search.cpan.org/dist/Dist-Zilla-Plugin-PodSpellingTests/>.
 
-The development version lives at
-L<http://github.com/hanekomu/Dist-Zilla-Plugin-PodSpellingTests/>.
-Instead of sending patches, please fork this project using the standard git
-and github infrastructure.
+The development version lives at L<http://github.com/hanekomu/Dist-Zilla-Plugin-PodSpellingTests.git>
+and may be cloned from L<git://github.com/hanekomu/Dist-Zilla-Plugin-PodSpellingTests.git>.
+Instead of sending patches, please fork this project using the standard
+git and github infrastructure.
 
-=head1 AUTHOR
+=head1 AUTHORS
 
-  Marcel Gruenauer <marcel@cpan.org>
+=over 4
+
+=item *
+
+Marcel Gruenauer <marcel@cpan.org>
+
+=item *
+
+Harley Pig <harleypig@gmail.com>
+
+=back
 
 =head1 COPYRIGHT AND LICENSE
 
@@ -87,13 +193,16 @@ ___[ xt/release/pod-spell.t ]___
 
 use Test::More;
 
-eval "use Pod::Wordlist::hanekomu";
-plan skip_all => "Pod::Wordlist:hanekomu required for testing POD spelling"
+eval "use {{ $wordlist }}";
+plan skip_all => "{{ $wordlist }} required for testing POD spelling"
   if $@;
 
 eval "use Test::Spelling";
 plan skip_all => "Test::Spelling required for testing POD spelling"
   if $@;
 
+{{ $set_spell_cmd }}
+{{ $add_stopwords }}
 all_pod_files_spelling_ok('lib');
+{{ $stopwords }}
 
