@@ -4,7 +4,7 @@ use warnings;
 
 package Dist::Zilla::Plugin::PodSpellingTests;
 BEGIN {
-  $Dist::Zilla::Plugin::PodSpellingTests::VERSION = '1.103490';
+  $Dist::Zilla::Plugin::PodSpellingTests::VERSION = '1.103491';
 }
 
 # ABSTRACT: Release tests for POD spelling
@@ -72,7 +72,7 @@ Dist::Zilla::Plugin::PodSpellingTests - Release tests for POD spelling
 
 =head1 VERSION
 
-version 1.103490
+version 1.103491
 
 =head1 SYNOPSIS
 
@@ -123,15 +123,15 @@ Defaults to L<Pod::Wordlist::hanekomu>.
 
 =head2 spell_cmd
 
-If C<spell_cmd> is set then C<set_spell_cmd( your_spell_command );> added to
-the test file to allow.
+If C<spell_cmd> is set then C<set_spell_cmd( your_spell_command );> is added
+to the test file to allow for custom spell check programs.
 
 Defaults to nothing.
 
 =head2 stopwords
 
-If stopwords is set then C<add_stopwords( <DATA> )> is added to the test file
-and the words are added after the __DATA__ section.
+If stopwords is set then C<add_stopwords( E<lt>DATAE<gt> )> is added to the
+test file and the words are added after the C<__DATA__> section.
 
 C<stopwords> can appear multiple times, one word per line.
 
