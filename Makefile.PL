@@ -4,7 +4,7 @@ use warnings;
 
 BEGIN { require 5.008; }
 
-use ExtUtils::MakeMaker 6.31;
+use ExtUtils::MakeMaker 6.30;
 
 
 
@@ -20,7 +20,7 @@ my %WriteMakefileArgs = (
     'Test::More' => '0.94'
   },
   'CONFIGURE_REQUIRES' => {
-    'ExtUtils::MakeMaker' => '6.31'
+    'ExtUtils::MakeMaker' => '6.30'
   },
   'DISTNAME' => 'Dist-Zilla-Plugin-PodSpellingTests',
   'EXE_FILES' => [],
@@ -33,7 +33,7 @@ my %WriteMakefileArgs = (
     'Pod::Wordlist::hanekomu' => '0',
     'Test::Spelling' => '0'
   },
-  'VERSION' => '1.103491',
+  'VERSION' => '1.111480',
   'test' => {
     'TESTS' => 't/*.t'
   }

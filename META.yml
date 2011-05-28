@@ -11,9 +11,9 @@ build_requires:
   Scalar::Util: 0
   Test::More: 0.94
 configure_requires:
-  ExtUtils::MakeMaker: 6.31
+  ExtUtils::MakeMaker: 6.30
 dynamic_config: 0
-generated_by: 'Dist::Zilla version 4.200000, CPAN::Meta::Converter version 2.102400'
+generated_by: 'Dist::Zilla version 4.200006, CPAN::Meta::Converter version 2.110930'
 license: perl
 meta-spec:
   url: http://module-build.sourceforge.net/META-spec-v1.4.html
@@ -22,7 +22,7 @@ name: Dist-Zilla-Plugin-PodSpellingTests
 provides:
   Dist::Zilla::Plugin::PodSpellingTests:
     file: lib/Dist/Zilla/Plugin/PodSpellingTests.pm
-    version: 1.103491
+    version: 1.111480
 requires:
   Dist::Zilla::Plugin::InlineFiles: 0
   Dist::Zilla::Role::TextTemplate: 0
@@ -34,4 +34,4 @@ resources:
   bugtracker: http://rt.cpan.org/Public/Dist/Display.html?Name=Dist-Zilla-Plugin-PodSpellingTests
   homepage: http://search.cpan.org/dist/Dist-Zilla-Plugin-PodSpellingTests/
   repository: git://github.com/hanekomu/Dist-Zilla-Plugin-PodSpellingTests.git
-version: 1.103491
+version: 1.111480

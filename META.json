@@ -5,7 +5,7 @@
       "Harley Pig <harleypig@gmail.com>"
    ],
    "dynamic_config" : 0,
-   "generated_by" : "Dist::Zilla version 4.200000, CPAN::Meta::Converter version 2.102400",
+   "generated_by" : "Dist::Zilla version 4.200006, CPAN::Meta::Converter version 2.110930",
    "license" : [
       "perl_5"
    ],
@@ -17,7 +17,7 @@
    "prereqs" : {
       "configure" : {
          "requires" : {
-            "ExtUtils::MakeMaker" : "6.31"
+            "ExtUtils::MakeMaker" : "6.30"
          }
       },
       "runtime" : {
@@ -44,7 +44,7 @@
    "provides" : {
       "Dist::Zilla::Plugin::PodSpellingTests" : {
          "file" : "lib/Dist/Zilla/Plugin/PodSpellingTests.pm",
-         "version" : "1.103491"
+         "version" : "1.111480"
       }
    },
    "release_status" : "stable",
@@ -60,6 +60,6 @@
          "web" : "http://github.com/hanekomu/Dist-Zilla-Plugin-PodSpellingTests"
       }
    },
-   "version" : "1.103491"
+   "version" : "1.111480"
 }
 
