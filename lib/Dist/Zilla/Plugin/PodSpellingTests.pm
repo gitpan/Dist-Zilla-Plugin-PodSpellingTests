@@ -4,7 +4,7 @@ use warnings;
 
 package Dist::Zilla::Plugin::PodSpellingTests;
 BEGIN {
-  $Dist::Zilla::Plugin::PodSpellingTests::VERSION = '1.111480';
+  $Dist::Zilla::Plugin::PodSpellingTests::VERSION = '1.111520';
 }
 
 # ABSTRACT: Release tests for POD spelling
@@ -78,7 +78,7 @@ Dist::Zilla::Plugin::PodSpellingTests - Release tests for POD spelling
 
 =head1 VERSION
 
-version 1.111480
+version 1.111520
 
 =head1 SYNOPSIS
 
@@ -205,8 +205,8 @@ eval "use {{ $wordlist }}";
 plan skip_all => "{{ $wordlist }} required for testing POD spelling"
   if $@;
 
-eval "use Test::Spelling";
-plan skip_all => "Test::Spelling required for testing POD spelling"
+eval "use Test::Spelling 0.12";
+plan skip_all => "Test::Spelling 0.12 required for testing POD spelling"
   if $@;
 
 {{ $set_spell_cmd }}
